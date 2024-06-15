@@ -24,6 +24,7 @@ return new class extends Migration
         Schema::table('users', static function (Blueprint $table) {
             $table->foreignIdFor(TelegraphBot::class)
                 ->after('id')
+                ->nullable()
                 ->constrained()
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
