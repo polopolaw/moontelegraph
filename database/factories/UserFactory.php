@@ -21,7 +21,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'is_active' => fake()->boolean(),
-            'telegram_id' => \str()->random(20),
+            'telegram_id' => fake()->numberBetween(100, 10000),
             'telegraph_bot_id' => TelegraphBot::query()->inRandomOrder()->value('id'),
             'phone' => fake()->phoneNumber(),
             'phone_verified_at' => fake()->numberBetween(1, 2) % 2 ? fake()->dateTime() : null,
