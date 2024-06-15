@@ -74,9 +74,9 @@ class TelegraphBotResource extends ModelResource
                 'required',
                 'string',
                 'regex:/^[0-9]{8,10}:[a-zA-Z0-9_-]{35}$/',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail) use ($item) {
                     $hash = hash('sha256', $value);
-                    if (TelegraphBot::where('hash_token', $hash)->exists()) {
+                    if (TelegraphBot::where('hash_token', $hash)->whereNot('id', $item->id)->exists()) {
                         $fail(__('The token has already been taken.'));
                     }
                 },
