@@ -10,7 +10,12 @@ class UserObserver
     public function updated(User $user): void
     {
         if ($user->isDirty(['is_active'])) {
-            app(NotifyUserStatusChanged::class)->execute($user);
+            try {
+                app(NotifyUserStatusChanged::class)->execute($user);
+            } catch (\Throwable $e) {
+                logger()->critical($e);
+            }
+
         }
     }
 }
